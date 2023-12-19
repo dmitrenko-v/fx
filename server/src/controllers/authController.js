@@ -10,7 +10,13 @@ const { validateNewUser } = require("../utils/validators");
 module.exports = {
   async register(req, res) {
     try {
-      const { firstName, lastName, userName, email, password } = req.body;
+      const {
+        firstName,
+        lastName,
+        userName,
+        email,
+        password,
+      } = req.body;
       if (!validateNewUser(firstName, lastName, userName, email, password)) {
         return res.status(400).json({ error: "Invalid data format" });
       }
@@ -59,7 +65,6 @@ module.exports = {
 
       return res.status(200).json(user);
     } catch (err) {
-      console.error(err);
       return res.status(500).json({ error: "Internal server error" });
     }
   },
@@ -96,7 +101,6 @@ module.exports = {
 
       return res.status(200).json(user);
     } catch (err) {
-      console.error(err);
       return res.status(500).json({ error: "Internal server error" });
     }
   },
@@ -121,7 +125,6 @@ module.exports = {
 
       return res.status(200).json({ message: "User logged out successfully" });
     } catch (err) {
-      console.error(err);
       return res.status(500).json({ error: "Internal server error" });
     }
   },

@@ -16,7 +16,7 @@ async function verifyJWT(req, res, next) {
       (err, decoded) => {
         if (err) return res.sendStatus(401);
         return decoded.userId;
-      }
+      },
     );
 
     const user = await User.findByPk(decodedToken, {
@@ -37,7 +37,6 @@ async function verifyJWT(req, res, next) {
     req.user = user;
     next();
   } catch (err) {
-    console.error(err);
     return res.status(500).json({ error: "Internal server error" });
   }
 }

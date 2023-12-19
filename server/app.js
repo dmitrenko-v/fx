@@ -10,7 +10,7 @@ app.use(
   cors({
     credentials: true,
     origin: ["http://localhost:5173", "http://localhost:4173"],
-  })
+  }),
 );
 
 app.use(express.json());
@@ -25,5 +25,4 @@ const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, async () => {
   await initDB();
-  console.log(`Server started at port ${PORT}`);
 });

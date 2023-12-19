@@ -11,7 +11,6 @@ async function initDB() {
   );
   try {
     await sequelize.authenticate();
-    console.log("Connected to database successfully");
   } catch (err) {
     throw new Error("Unable to connect to database");
   }
