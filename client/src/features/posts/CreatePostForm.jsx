@@ -31,6 +31,10 @@ export default function PostForm() {
         className="create-post-form__input"
         placeholder="What's new?"
         {...register("postText", {
+          required: {
+            value: true,
+            message: "Post can not be empty",
+          },
           maxLength: {
             value: 500,
             message: "Post can not be longer than 500 characters",

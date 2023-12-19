@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setUser } from "./authSlice.js";
 import Spinner from "../../components/Spinner.jsx";
+
 export default function LoginForm() {
   const [errorMsg, setErrorMsg] = useState("");
   const { register, handleSubmit } = useForm();

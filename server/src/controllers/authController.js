@@ -10,13 +10,7 @@ const { validateNewUser } = require("../utils/validators");
 module.exports = {
   async register(req, res) {
     try {
-      const {
-        firstName,
-        lastName,
-        userName,
-        email,
-        password,
-      } = req.body;
+      const { firstName, lastName, userName, email, password } = req.body;
       if (!validateNewUser(firstName, lastName, userName, email, password)) {
         return res.status(400).json({ error: "Invalid data format" });
       }
@@ -61,7 +55,9 @@ module.exports = {
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
 
-      return res.status(200).json({ message: "User succesfully created" });
+      delete user.password;
+
+      return res.status(200).json(user);
     } catch (err) {
       console.error(err);
       return res.status(500).json({ error: "Internal server error" });
@@ -95,7 +91,9 @@ module.exports = {
         sameSite: "None",
         maxAge: 15 * 60 * 1000,
       });
+
       delete user.password;
+
       return res.status(200).json(user);
     } catch (err) {
       console.error(err);
@@ -109,11 +107,6 @@ module.exports = {
 
   async logout(req, res) {
     try {
-      const { accessToken, refreshToken } = req.cookies;
-      if (accessToken && refreshToken) {
-        return res.sendStatus(204);
-      }
-
       res.clearCookie("accessToken", {
         httpOnly: true,
         secure: true,
@@ -125,6 +118,7 @@ module.exports = {
         secure: true,
         sameSite: "None",
       });
+
       return res.status(200).json({ message: "User logged out successfully" });
     } catch (err) {
       console.error(err);

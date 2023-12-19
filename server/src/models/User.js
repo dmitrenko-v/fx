@@ -3,8 +3,18 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      this.hasMany(models.Post, { foreignKey: "userId", as: "posts" });
-      this.hasMany(models.Comment, { foreignKey: "userId", as: "comments" });
+      this.hasMany(models.Post, {
+        foreignKey: "userId",
+        as: "posts",
+        onDelete: "cascade",
+        hooks: true,
+      });
+      this.hasMany(models.Comment, {
+        foreignKey: "userId",
+        as: "comments",
+        onDelete: "cascade",
+        hooks: true,
+      });
     }
   }
   User.init(
@@ -24,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: "User",
       timestamps: false,
-    },
+    }
   );
   return User;
 };

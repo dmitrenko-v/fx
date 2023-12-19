@@ -16,7 +16,6 @@ export default function Posts() {
     sortedPosts.sort((a, b) => b.datePosted.localeCompare(a.datePosted));
     return sortedPosts;
   }, [posts]);
-
   if (isLoading) return <Spinner />;
 
   if (isSuccess) {
@@ -25,7 +24,7 @@ export default function Posts() {
         {user && <PostForm />}
         <div className="posts">
           {sortedPosts.map((post) => (
-            <Post key={post.id} post={post} />
+            <Post key={post.id} post={post} user={post.user} />
           ))}
         </div>
       </div>

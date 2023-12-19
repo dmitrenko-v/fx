@@ -1,15 +1,16 @@
-import close from "../assets/close.svg";
+import close from "../../assets/close.svg";
 import LoginForm from "../features/auth/LoginForm";
 import RegisterForm from "../features/auth/RegisterForm";
+import DeletePost from "../features/posts/DeletePost";
 
-export default function Modal({ setIsOpen, modalType }) {
+export default function Modal({ setIsOpen, modalType, deletePostId = null }) {
   let headerText;
-  let form;
+  let content;
   let bottomText;
 
   if (modalType === "login") {
     headerText = "Log in";
-    form = <LoginForm />;
+    content = <LoginForm />;
     bottomText = (
       <p className="modal__bottom-text">
         First time using FX?{" "}
@@ -20,7 +21,7 @@ export default function Modal({ setIsOpen, modalType }) {
 
   if (modalType === "register") {
     headerText = "Register";
-    form = <RegisterForm />;
+    content = <RegisterForm />;
     bottomText = (
       <p className="modal__bottom-text">
         Already have an account?{" "}
@@ -28,6 +29,13 @@ export default function Modal({ setIsOpen, modalType }) {
       </p>
     );
   }
+
+  if (modalType === "delete") {
+    headerText = "Are you sure you want to delete post?";
+    content = <DeletePost setIsOpen={setIsOpen} deletePostId={deletePostId} />;
+    bottomText = "";
+  }
+
   return (
     <div className="darkBG">
       <div className="modal">
@@ -39,7 +47,7 @@ export default function Modal({ setIsOpen, modalType }) {
             src={close}
           />
         </div>
-        {form}
+        {content}
         {bottomText}
       </div>
     </div>

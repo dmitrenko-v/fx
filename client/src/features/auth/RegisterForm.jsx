@@ -26,9 +26,8 @@ export default function RegisterForm() {
 
   const onSubmit = async function (data) {
     try {
-      await registerUser(data);
-      delete data.password;
-      dispatch(setUser(data));
+      const newUser = await registerUser(data).unwrap();
+      dispatch(setUser(newUser));
     } catch (err) {
       setErrorMsg(err.data.error);
     }

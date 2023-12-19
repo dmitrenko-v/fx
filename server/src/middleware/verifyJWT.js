@@ -7,7 +7,7 @@ async function verifyJWT(req, res, next) {
     const { userId } = req.body;
     const { refreshToken } = req.cookies;
     let { accessToken } = req.cookies;
-    console.log(req.cookies);
+
     if (!refreshToken) return res.sendStatus(401);
 
     const decodedToken = jwt.verify(
@@ -16,10 +16,8 @@ async function verifyJWT(req, res, next) {
       (err, decoded) => {
         if (err) return res.sendStatus(401);
         return decoded.userId;
-      },
+      }
     );
-
-    console.log(decodedToken);
 
     const user = await User.findByPk(decodedToken, {
       attributes: { exclude: ["password"] },

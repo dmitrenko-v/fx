@@ -1,5 +1,5 @@
 import { apiSlice } from "../../api";
-import { setUser, logOut } from "./authSlice";
+import { setUser } from "./authSlice";
 
 export const authEndpoints = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -25,10 +25,6 @@ export const authEndpoints = apiSlice.injectEndpoints({
         method: "POST",
         credentials: "include",
       }),
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        await queryFulfilled;
-        dispatch(logOut());
-      },
     }),
     getSession: builder.query({
       query: () => ({ url: "/auth/session", credentials: "include" }),

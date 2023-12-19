@@ -23,18 +23,21 @@ export const postsEndpoints = apiSlice.injectEndpoints({
     }),
 
     editPost: builder.mutation({
-      query: (initialPost) => ({
-        url: `/posts/${initialPost.id}`,
+      query: ({ postId, text, userId }) => ({
+        url: `/posts/${postId}`,
         method: "PATCH",
-        body: initialPost,
+        credentials: "include",
+        body: { text, userId },
       }),
       invalidatesTags: ["Posts"],
     }),
 
     deletePost: builder.mutation({
-      query: (postId) => ({
+      query: ({ postId, userId }) => ({
         url: `/posts/${postId}`,
         method: "DELETE",
+        credentials: "include",
+        body: { userId },
       }),
       invalidatesTags: ["Posts"],
     }),

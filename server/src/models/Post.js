@@ -4,7 +4,12 @@ module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
     static associate(models) {
       this.belongsTo(models.User, { foreignKey: "userId", as: "user" });
-      this.hasMany(models.Comment, { foreignKey: "postId", as: "comments" });
+      this.hasMany(models.Comment, {
+        foreignKey: "postId",
+        as: "comments",
+        onDelete: "cascade",
+        hooks: true,
+      });
     }
   }
   Post.init(
@@ -21,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: "Post",
       timestamps: false,
-    },
+    }
   );
   return Post;
 };

@@ -1,20 +1,21 @@
 import postedTimeAgo from "./postedTimeAgo";
 import { useNavigate } from "react-router-dom";
-import comments from "../../assets/comments.svg";
-
-export default function Post({ post }) {
+import comments from "../../../assets/comments.svg";
+import LinkToUser from "../users/LinkToUser";
+export default function Post({ post, user }) {
   const navigate = useNavigate();
   const { text, datePosted, id: postId } = post;
-  const { userName } = post.user;
+  const { userName, id } = user;
   const timeAgo = postedTimeAgo(datePosted);
 
   const onPostClick = () => {
     navigate(`post/${postId}`);
   };
+
   return (
     <article onClick={onPostClick} className="post">
       <div className="post__header">
-        <a className="post__author-ref">@{userName}</a>{" "}
+        <LinkToUser userId={id} userName={userName} />{" "}
         <span className="post__timeago">{timeAgo} ago</span>
       </div>
       <div className="post__content">
